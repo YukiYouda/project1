@@ -1,0 +1,36 @@
+h5 {
+    color: white;
+}
+
+p {
+    color: white;
+    font-size: 0.6rem;
+}
+
+.onomatopoeia-card p {
+    color: black;
+}
+
+
+.face {
+    font-size: 1.6rem;
+}
+
+.emotion-box {
+    width: 180px;
+    height: 180px;
+}
+
+.card {
+    width: 5000px;
+}
+
+.onomatopoeia-card {
+    background-color: white;
+    width: 300px;
+}
+
+.onomatopoeia-image {
+    width: 100%;
+    height: auto;
+}

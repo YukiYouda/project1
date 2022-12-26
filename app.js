@@ -108,11 +108,12 @@ const emotions = [
     "beige",
     ["ahem", "clatter", "clunk"]
   ),
-  new EmotionObject("sad", "feeling or showing sorrow; unhappy.", "grey", [
-    "bawl",
-    "whine",
-    "waah",
-  ]),
+  new EmotionObject(
+    "sad", 
+    "feeling or showing sorrow; unhappy.", 
+    "grey", 
+    ["bawl","whine","waah",]
+  ),
   new EmotionObject(
     "surprised",
     "to feel mild astonishment or shock.",

@@ -7,16 +7,80 @@ class Word {
 }
 
 class EmotionObject {
-  constructor(emotion, description, color, onomatopoeia) {
+  constructor(emotion, description, color, onomatopoeia, face) {
     this.emotion = emotion;
     this.description = description;
     this.color = color;
     this.onomatopoeia = onomatopoeia;
+    this.face = face;
   }
 
-  getOnomatopoeiaWords() {}
+  getOnomatopoeiaWords(){
+    return this.onomatopoeia;
+  }
 
-  getHtmlContainerString() {}
+  // emotion-card部分の作成
+  createEmotionCard(){
+    let container = '<div class="container d-flex flex-wrap justify-content-center col-8">';
+
+    for(let i = 0; i < emotions.length; i++){
+      container +=
+      `
+        <a href="#sec${i}">
+          <div class="emotion-card m-3 p-3 text-center" style="background-color: ${emotions[i].color};">
+            <h5>${emotions[i].emotion}</h5>
+            <p class="face">${emotions[i].face}</p>
+            <p>${emotions[i].description}</p>
+          </div>
+        </a>
+      `
+    }
+    container += "</div>";
+    return container;
+  }
+
+  // emotion-area部分の作成
+  createEmotionArea(){
+
+    let emotionArea = "";
+  
+    for(let i = 0; i < emotions.length; i++){
+  
+      let onomatopoeia = emotions[i].getOnomatopoeiaWords();
+  
+      emotionArea +=
+      `
+        <div id="sec${i}" class="emotion-area" style="background-color: ${emotions[i].color};">
+          <div class="container px-5 py-3">
+            <div class="px-5 py-3">
+              <h5>${emotions[i].emotion}</h5>
+              <p>${emotions[i].description}</p>
+            </div>
+            <div class="d-flex flex-wrap justify-content-between">
+      `
+
+      for(let i = 0; i < onomatopoeia.length; i++){
+        emotionArea +=
+        `
+          <div class="onomatopoeia-card d-flex px-0 my-2 col-5">
+            <div class="col-7 d-flex flex-column justify-content-center">
+              <h6>${onomatopoeia[i]}</h6>
+              <p>${dictionary[onomatopoeia[i]]}</p>
+            </div>
+            <div class="col-5 d-flex align-items-center p-1">
+              <img class="onomatopoeia-image" src="${pictureDictionary[onomatopoeia[i]]}">
+            </div>
+          </div>
+        `
+      }
+      emotionArea += "</div></div></div>"
+    }
+    return emotionArea
+  }
+
+  createHtmlString(){
+    return this.createEmotionCard() + this.createEmotionArea();
+  }
 }
 
 //グローバル定数
@@ -94,42 +158,54 @@ const emotions = [
     "angry",
     "feeling or showing strong annoyance, displeasure, or hostility; full of anger.",
     "red",
-    ["bark", "grunt", "roar", "whack", "smack", "hiss"]
+    ["bark", "grunt", "roar", "whack", "smack", "hiss"],
+    "😠",
   ),
   new EmotionObject(
     "happy",
     "feeling or showing pleasure or contentment.",
     "yellow",
-    ["bling", "chatter", "chant", "giggle"]
+    ["bling", "chatter", "chant", "giggle"],
+    "🥳",
   ),
   new EmotionObject(
     "bad",
     "not such as to be hoped for or desired; unpleasant or unwelcome.",
     "beige",
-    ["ahem", "clatter", "clunk"]
+    ["ahem", "clatter", "clunk"],
+    "😰",
   ),
   new EmotionObject(
     "sad", 
     "feeling or showing sorrow; unhappy.", 
     "grey", 
-    ["bawl","whine","waah",]
+    ["bawl","whine","waah",],
+    "🥺",
   ),
   new EmotionObject(
     "surprised",
     "to feel mild astonishment or shock.",
     "purple",
-    ["boom", "honk", "zing"]
+    ["boom", "honk", "zing"],
+    "😲",
   ),
   new EmotionObject(
     "fearful",
     "feeling afraid; showing fear or anxiety.",
     "green",
-    ["buzz", "caw", "crawl"]
+    ["buzz", "caw", "crawl"],
+    "😖",
   ),
   new EmotionObject(
     "disgusted",
     "feeling or showing strong annoyance, displeasure, or hostility; full of anger.",
     "orange",
-    ["flick", "gargle", "oink"]
+    ["flick", "gargle", "oink"],
+    "😒",
   ),
 ];
+
+let target = document.getElementById("target");
+let htmlString = emotions[0].createHtmlString();
+
+target.innerHTML = htmlString;
